@@ -8,13 +8,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapseOn: 1000
+      shouldNavbarCollapse: false
     };
   }
 
-  updateCollapseOnCoordinate() {
+  updateNavbarCollapse() {
     this.setState({
-      collapseOn: this.services.getBoundingClientRect().top
+      shouldNavbarCollapse:
+        this.services.getBoundingClientRect().top <=
+        this.header.navbar.clientHeight
     });
   }
 
@@ -31,7 +33,7 @@ class App extends Component {
 
     document.addEventListener(
       "scroll",
-      _.throttle(this.updateCollapseOnCoordinate, 200).bind(this)
+      _.throttle(this.updateNavbarCollapse, 200).bind(this)
     );
   }
 
@@ -42,7 +44,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header collapseOn={this.state.collapseOn} />
+        <Header
+          navbarCollapsed={this.state.shouldNavbarCollapse}
+          ref={header => {
+            this.header = header;
+          }}
+        />
         <section className="home">
           <div className="home-container">
             <div className="home-illustration" />

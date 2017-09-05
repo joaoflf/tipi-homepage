@@ -1,30 +1,16 @@
-import React, { Component } from 'react';
-import './Header.css';
+import React, { Component } from "react";
+import "./Header.css";
 
 class Header extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      navbarCollapsed: false
-    }
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      navbarCollapsed: nextProps.collapseOn <= this.navbar.clientHeight
-    })
-  }
-
   render() {
     return (
       <header>
         <nav
-          className={`navbar ${this.state.navbarCollapsed && 'navbar-collapsed'}`}
-          ref={(navbar) => { this.navbar = navbar; }}
+          className={`navbar ${this.props.navbarCollapsed &&
+            "navbar-collapsed"}`}
+          ref={navbar => {
+            this.navbar = navbar;
+          }}
         >
           <span className="header-name">TIPI</span>
           <ul className="menu">
